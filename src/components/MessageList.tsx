@@ -1,7 +1,12 @@
 "use client";
 
+interface Message {
+  text: string;
+  sender: "user" | "bot";
+}
+
 interface MessageListProps {
-  messages: string[];
+  messages: Message[];
 }
 
 export default function MessageList({ messages }: MessageListProps) {
@@ -18,8 +23,13 @@ export default function MessageList({ messages }: MessageListProps) {
   return (
     <div className="flex-1 overflow-y-auto space-y-2 p-4">
       {messages.map((msg, idx) => (
-        <div key={idx} className="rounded-lg bg-gray-800 px-4 py-2">
-          {msg}
+        <div
+          key={idx}
+          className={`rounded-lg px-4 py-2 max-w-[80%] ${
+            msg.sender === "user" ? "ml-auto bg-blue-600" : "bg-gray-800"
+          }`}
+        >
+          {msg.text}
         </div>
       ))}
     </div>

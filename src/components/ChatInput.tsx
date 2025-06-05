@@ -4,16 +4,16 @@ import { FormEvent, useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 
 interface ChatInputProps {
-  onSend: (message: string) => void;
+  onSend: (message: string) => Promise<void> | void;
 }
 
 export default function ChatInput({ onSend }: ChatInputProps) {
   const [text, setText] = useState("");
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (text.trim() === "") return;
-    onSend(text);
+    await onSend(text);
     setText("");
   };
 
