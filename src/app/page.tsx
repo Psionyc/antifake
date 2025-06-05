@@ -35,12 +35,20 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.4 }}
         >
-          <Link
-            href="/chat"
-            className="inline-flex items-center gap-2 rounded-full bg-white/90 px-6 py-3 text-lg font-medium text-black hover:bg-white"
-          >
-            Enter <FiArrowUpRight />
-          </Link>
+          <div className="flex justify-center gap-4">
+            <Link
+              href="/chat"
+              className="inline-flex items-center gap-2 rounded-full bg-white/90 px-6 py-3 text-lg font-medium text-black hover:bg-white"
+            >
+              Enter <FiArrowUpRight />
+            </Link>
+            <Link
+              href="/stats"
+              className="inline-flex items-center gap-2 rounded-full bg-white/90 px-6 py-3 text-lg font-medium text-black hover:bg-white"
+            >
+              Stats <FiArrowUpRight />
+            </Link>
+          </div>
         </motion.div>
       </div>
     </main>
