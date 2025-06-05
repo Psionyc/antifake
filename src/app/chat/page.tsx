@@ -18,7 +18,7 @@ export default function ChatPage() {
     setMessages((prev) => [...prev, { text, sender: "user" }]);
 
     try {
-      const apiKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
+      const apiKey = process.env.NEXT_PUBLIC_OPENAI_KEY;
       if (!apiKey) return;
       const agent = initAntiFakeAgent(apiKey);
       const result = await agent.invoke({ input: text });

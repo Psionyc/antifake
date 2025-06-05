@@ -13,16 +13,16 @@ import {
 } from "recharts";
 
 const networks = [
-  { name: "Channels TV", score: 78, image: "https://via.placeholder.com/60" },
-  { name: "AIT", score: 65, image: "https://via.placeholder.com/60" },
-  { name: "Punch", score: 72, image: "https://via.placeholder.com/60" },
-  { name: "Vanguard", score: 70, image: "https://via.placeholder.com/60" },
-  { name: "The Guardian Nigeria", score: 80, image: "https://via.placeholder.com/60" },
-  { name: "Sahara Reporters", score: 55, image: "https://via.placeholder.com/60" },
-  { name: "This Day", score: 68, image: "https://via.placeholder.com/60" },
-  { name: "Daily Trust", score: 75, image: "https://via.placeholder.com/60" },
-  { name: "The Nation", score: 73, image: "https://via.placeholder.com/60" },
-  { name: "NTA News", score: 60, image: "https://via.placeholder.com/60" },
+  { name: "Channels TV", score: 78, image: "https://logo.clearbit.com/channelstv.com" },
+  { name: "AIT", score: 65, image: "https://logo.clearbit.com/ait.live" },
+  { name: "Punch", score: 72, image: "https://logo.clearbit.com/punchng.com" },
+  { name: "Vanguard", score: 70, image: "https://logo.clearbit.com/vanguardngr.com" },
+  { name: "The Guardian Nigeria", score: 80, image: "https://logo.clearbit.com/guardian.ng" },
+  { name: "Sahara Reporters", score: 55, image: "https://logo.clearbit.com/saharareporters.com" },
+  { name: "This Day", score: 68, image: "https://logo.clearbit.com/thisdaylive.com" },
+  { name: "Daily Trust", score: 75, image: "https://logo.clearbit.com/dailytrust.com" },
+  { name: "The Nation", score: 73, image: "https://logo.clearbit.com/thenationonlineng.net" },
+  { name: "NTA News", score: 60, image: "https://logo.clearbit.com/nta.ng" },
 ];
 
 const pieData = [
