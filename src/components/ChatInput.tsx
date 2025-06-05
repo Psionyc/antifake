@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { FiArrowUpRight } from "react-icons/fi";
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -17,19 +18,20 @@ export default function ChatInput({ onSend }: ChatInputProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 p-4 border-t bg-gray-800">
+    <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-gray-800">
       <input
         type="text"
-        className="flex-1 rounded border px-3 py-2 bg-gray-700 text-white"
+        className="flex-1 rounded-full border border-gray-600 px-4 py-3 bg-gray-700 text-white"
         placeholder="Type your message..."
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
       <button
         type="submit"
-        className="rounded bg-blue-600 px-4 py-2 text-white"
+        className="flex items-center gap-1 rounded-full bg-blue-600 px-4 py-3 text-white"
       >
-        Send
+        <FiArrowUpRight />
+        <span className="hidden sm:inline">Send</span>
       </button>
     </form>
   );
