@@ -29,9 +29,11 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-neutral-950 text-white">
-      <MessageList messages={messages} />
-      <ChatInput onSend={handleSend} />
+    <div className="flex h-screen flex-col items-center bg-neutral-950 text-white">
+      <div className="flex h-full w-full max-w-2xl flex-col">
+        <MessageList messages={messages} />
+        <ChatInput onSend={handleSend} />
+      </div>
     </div>
   );
 }
