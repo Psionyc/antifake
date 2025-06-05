@@ -13,7 +13,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-gray-900 text-white">
+    <div className="flex h-screen flex-col bg-neutral-950 text-white">
       <MessageList messages={messages} />
       <ChatInput onSend={handleSend} />
     </div>

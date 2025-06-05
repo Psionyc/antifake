@@ -7,7 +7,7 @@ interface MessageListProps {
 export default function MessageList({ messages }: MessageListProps) {
   if (messages.length === 0) {
     return (
-      <div className="flex flex-1 items-center justify-center p-4 text-center text-gray-400">
+      <div className="flex flex-1 items-center justify-center p-4 text-center text-white font-bold">
         Paste an article link, an article name or the article content.
       </div>
     );
