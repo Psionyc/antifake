@@ -25,11 +25,11 @@ import { StringOutputParser } from '@langchain/core/output_parsers'
  */
 export function initAntiFakeAgent(
   apiKey: string,
-  model: string = 'gpt-3.5-turbo'
+  model: string = 'gpt-4.1'
 ) {
   const chat = new ChatOpenAI({
     apiKey,
-    modelName: model,
+   model,
     temperature: 0.3,
   })
 
