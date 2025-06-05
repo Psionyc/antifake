@@ -35,7 +35,7 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.4 }}
         >
-          <div className="flex justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/chat"
               className="inline-flex items-center gap-2 rounded-full bg-white/90 px-6 py-3 text-lg font-medium text-black hover:bg-white"
@@ -44,7 +44,7 @@ export default function Home() {
             </Link>
             <Link
               href="/stats"
-              className="inline-flex items-center gap-2 rounded-full bg-white/90 px-6 py-3 text-lg font-medium text-black hover:bg-white"
+              className="mt-2 sm:mt-0 inline-flex items-center gap-2 rounded-full border border-white/70 px-6 py-3 text-lg font-medium text-white hover:bg-white/10"
             >
               Stats <FiArrowUpRight />
             </Link>
