@@ -13,16 +13,16 @@ import {
 } from "recharts";
 
 const networks = [
-  { name: "Channels TV", score: 78, image: "https://logo.clearbit.com/channelstv.com" },
-  { name: "AIT", score: 65, image: "https://logo.clearbit.com/ait.live" },
-  { name: "Punch", score: 72, image: "https://logo.clearbit.com/punchng.com" },
-  { name: "Vanguard", score: 70, image: "https://logo.clearbit.com/vanguardngr.com" },
-  { name: "The Guardian Nigeria", score: 80, image: "https://logo.clearbit.com/guardian.ng" },
-  { name: "Sahara Reporters", score: 55, image: "https://logo.clearbit.com/saharareporters.com" },
-  { name: "This Day", score: 68, image: "https://logo.clearbit.com/thisdaylive.com" },
-  { name: "Daily Trust", score: 75, image: "https://logo.clearbit.com/dailytrust.com" },
-  { name: "The Nation", score: 73, image: "https://logo.clearbit.com/thenationonlineng.net" },
-  { name: "NTA News", score: 60, image: "https://logo.clearbit.com/nta.ng" },
+  { name: "Channels TV", score: 78, image: "https://logo.clearbit.com/channelstv.com", link: "https://channelstv.com" },
+  { name: "AIT", score: 65, image: "https://logo.clearbit.com/ait.live", link: "https://ait.live" },
+  { name: "Punch", score: 72, image: "https://logo.clearbit.com/punchng.com", link: "https://punchng.com" },
+  { name: "Vanguard", score: 70, image: "https://logo.clearbit.com/vanguardngr.com", link: "https://vanguardngr.com" },
+  { name: "The Guardian Nigeria", score: 80, image: "https://logo.clearbit.com/guardian.ng", link: "https://guardian.ng" },
+  { name: "Sahara Reporters", score: 55, image: "https://logo.clearbit.com/saharareporters.com", link: "https://saharareporters.com" },
+  { name: "This Day", score: 68, image: "https://logo.clearbit.com/thisdaylive.com", link: "https://thisdaylive.com" },
+  { name: "Daily Trust", score: 75, image: "https://logo.clearbit.com/dailytrust.com", link: "https://dailytrust.com" },
+  { name: "The Nation", score: 73, image: "https://logo.clearbit.com/thenationonlineng.net", link: "https://thenationonlineng.net" },
+  { name: "NTA News", score: 60, image: "https://logo.clearbit.com/nta.ng", link: "https://nta.ng" },
 ];
 
 const pieData = [
@@ -44,6 +44,7 @@ export default function StatsPage() {
   return (
     <div className="flex min-h-screen flex-col items-center bg-neutral-950 p-4 text-white space-y-8">
       <h1 className="text-3xl font-bold">Statistics</h1>
+      <h2 className="text-lg font-semibold">News Channels &amp; Credibility Scores</h2>
       <div className="grid w-full max-w-xl grid-cols-1 gap-4">
         {networks.map((nw, idx) => (
           <div
@@ -53,7 +54,14 @@ export default function StatsPage() {
             <div className="flex items-center gap-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={nw.image} alt={nw.name} className="h-12 w-12 rounded-full" />
-              <span>{nw.name}</span>
+              <a
+                href={nw.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                {nw.name}
+              </a>
             </div>
             <div
               className="rounded px-3 py-1 font-semibold text-black"
