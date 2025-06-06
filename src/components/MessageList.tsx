@@ -18,7 +18,6 @@ export default function MessageList({ messages }: MessageListProps) {
     return (
       <div className="flex flex-1 items-center justify-center p-4">
         <div className="rounded-md border border-gray-600 bg-gray-800/70 px-8 py-4 text-center text-gray-300 font-medium space-y-2">
-          <p>Paste an article link, an article name, the article content, or upload a picture with text of a news article.</p>
           <p className="text-sm">Example prompts:</p>
           <p className="text-sm">"Is this Guardian article fake?"</p>
           <p className="text-sm">"Check if this story is credible."</p>
@@ -52,8 +51,8 @@ export default function MessageList({ messages }: MessageListProps) {
               msg.sender === "user"
                 ? "bg-blue-600 text-white"
                 : msg.error
-                ? "bg-red-900 text-red-200 border border-red-400"
-                : "bg-gray-800 text-white"
+                  ? "bg-red-900 text-red-200 border border-red-400"
+                  : "bg-gray-800 text-white"
             }`}
           >
             {msg.loading ? (

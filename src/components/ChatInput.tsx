@@ -1,7 +1,8 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { FiArrowUpRight, FiImage } from "react-icons/fi";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { FiArrowUpRight, FiImage, FiClipboard } from "react-icons/fi";
+import { Lightbulb } from "lucide-react";
 
 interface ChatInputProps {
   onSend: (message: string) => Promise<void> | void;
@@ -9,7 +10,17 @@ interface ChatInputProps {
 
 export default function ChatInput({ onSend }: ChatInputProps) {
   const [text, setText] = useState("");
+  const [hasClipboard, setHasClipboard] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .readText()
+        .then((t) => setHasClipboard(Boolean(t.trim())))
+        .catch(() => {});
+    }
+  }, []);
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -35,11 +46,47 @@ export default function ChatInput({ onSend }: ChatInputProps) {
     setText("");
   };
 
+  const handlePasteClick = async () => {
+    if (!navigator.clipboard) return;
+    try {
+      const clipText = await navigator.clipboard.readText();
+      if (clipText.trim()) {
+        setText(clipText.trim());
+        setHasClipboard(false);
+      }
+    } catch {}
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="flex w-full gap-2 p-4">
+    <form
+      onSubmit={handleSubmit}
+      className="fixed bottom-0 left-0 right-0 mx-auto flex w-full max-w-2xl gap-2 bg-neutral-950 p-4"
+    >
+      <div className="absolute bottom-full left-0 right-0 mb-2 flex flex-col gap-2 px-4 sm:flex-row sm:overflow-x-auto">
+        {hasClipboard && (
+          <button
+            type="button"
+            onClick={handlePasteClick}
+            className="flex items-center gap-1 rounded-full bg-gray-700 px-3 py-2 text-white"
+          >
+            <Lightbulb className="h-4 w-4" />
+            <FiClipboard className="h-4 w-4" />
+            <span>Paste</span>
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={() => fileRef.current?.click()}
+          className="flex items-center gap-1 rounded-full bg-gray-700 px-3 py-2 text-white"
+        >
+          <Lightbulb className="h-4 w-4" />
+          <FiImage className="h-4 w-4" />
+          <span>Upload image</span>
+        </button>
+      </div>
       <input
         type="text"
-        className="flex-1 rounded-full border border-gray-600 px-4 py-3 bg-gray-700 text-white"
+        className="flex-1 rounded-full border border-gray-600 bg-gray-700 px-4 py-3 text-white"
         placeholder="Type your message..."
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -47,18 +94,11 @@ export default function ChatInput({ onSend }: ChatInputProps) {
       <input
         type="file"
         accept="image/*"
+        capture="environment"
         ref={fileRef}
         onChange={handleImageChange}
         className="hidden"
       />
-      <button
-        type="button"
-        onClick={() => fileRef.current?.click()}
-        className="flex items-center gap-1 rounded-full bg-gray-700 px-4 py-3 text-white"
-      >
-        <FiImage />
-        <span className="hidden sm:inline">Upload</span>
-      </button>
       <button
         type="submit"
         className="flex items-center gap-1 rounded-full bg-blue-600 px-4 py-3 text-white"
