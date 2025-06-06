@@ -30,7 +30,6 @@ export function initAntiFakeAgent(
   const chat = new ChatOpenAI({
     apiKey,
    model,
-    temperature: 0.3,
   })
 
   const prompt = ChatPromptTemplate.fromMessages([
@@ -38,7 +37,7 @@ export function initAntiFakeAgent(
       'You are anti-fake bot. Analyse the provided news content and decide if it feels fake. ' +
       "You should reply to greetings and questions with a short and friendly response." +
         'If the text is incoherent or too short, reply "Content is incoherent. No score." ' +
-        'Otherwise reply in Markdown with the likelihood score out of 100 on the first line, the score formatted in **bold**. ' +
+        'Otherwise reply in Markdown with the Fake score out of 100 on the first line it becomes higher the more likely a news is to be fake and lower the more genuine the news feels i.e Fake Score [Score]/100, the score formatted in **bold**. ' +
         'Under the score outline the reasons in bullet points. Highlight any false statements by surrounding them with **.'
     ),
     HumanMessagePromptTemplate.fromTemplate('{input}'),
