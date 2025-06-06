@@ -11,6 +11,8 @@ import {
   YAxis,
   Tooltip,
 } from "recharts";
+import Link from "next/link";
+import { FiArrowLeft } from "react-icons/fi";
 
 const networks = [
   { name: "Channels TV", score: 78, image: "https://logo.clearbit.com/channelstv.com", link: "https://channelstv.com" },
@@ -43,6 +45,11 @@ const COLORS = ["#EF4444", "#10B981"];
 export default function StatsPage() {
   return (
     <div className="flex min-h-screen flex-col items-center bg-neutral-950 p-4 text-white space-y-8">
+      <div className="w-full">
+        <Link href="/" className="flex items-center gap-1 text-white hover:underline">
+          <FiArrowLeft /> Home
+        </Link>
+      </div>
       <h1 className="text-3xl font-bold">Statistics</h1>
       <h2 className="text-lg font-semibold">News Channels &amp; Credibility Scores</h2>
       <div className="grid w-full max-w-xl grid-cols-1 gap-4">
