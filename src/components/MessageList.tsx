@@ -36,7 +36,7 @@ export default function MessageList({ messages }: MessageListProps) {
   };
 
   return (
-    <div className="flex-1 w-full overflow-y-auto space-y-4 p-4">
+    <div className="flex-1 w-full space-y-4 p-4">
       {messages.map((msg, idx) => (
         <div
           key={idx}
