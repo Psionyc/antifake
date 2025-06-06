@@ -6,6 +6,7 @@ interface Message {
   text: string;
   sender: "user" | "bot";
   error?: boolean;
+  loading?: boolean;
 }
 
 interface MessageListProps {
@@ -16,8 +17,11 @@ export default function MessageList({ messages }: MessageListProps) {
   if (messages.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center p-4">
-        <div className="rounded-md border border-gray-600 bg-gray-800/70 px-8 py-4 text-center text-gray-300 font-medium">
-          Paste an article link, an article name or the article content.
+        <div className="rounded-md border border-gray-600 bg-gray-800/70 px-8 py-4 text-center text-gray-300 font-medium space-y-2">
+          <p>Paste an article link, an article name, the article content, or upload a picture with text of a news article.</p>
+          <p className="text-sm">Example prompts:</p>
+          <p className="text-sm">"Is this Guardian article fake?"</p>
+          <p className="text-sm">"Check if this story is credible."</p>
         </div>
       </div>
     );
@@ -52,7 +56,11 @@ export default function MessageList({ messages }: MessageListProps) {
                 : "bg-gray-800 text-white"
             }`}
           >
-            {renderText(msg.text)}
+            {msg.loading ? (
+              <div className="h-4 w-20 animate-pulse rounded bg-gray-600" />
+            ) : (
+              renderText(msg.text)
+            )}
           </div>
           {msg.sender === "user" && (
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600">
