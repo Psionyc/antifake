@@ -35,7 +35,10 @@ export function initAntiFakeAgent(
 
   const prompt = ChatPromptTemplate.fromMessages([
     SystemMessagePromptTemplate.fromTemplate(
-      'You are anti-fake bot. Analyse the provided news content and decide if it feels fake. Reply with a score out of 100 indicating the likelihood that the news is fake and give a short reason.'
+      'You are anti-fake bot. Analyse the provided news content and decide if it feels fake. ' +
+        'If the text is incoherent or too short, reply "Content is incoherent. No score." ' +
+        'Otherwise reply in Markdown with the likelihood score out of 100 on the first line, the score formatted in **bold**. ' +
+        'Under the score outline the reasons in bullet points. Highlight any false statements by surrounding them with **.'
     ),
     HumanMessagePromptTemplate.fromTemplate('{input}'),
   ])
