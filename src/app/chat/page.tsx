@@ -4,10 +4,12 @@ import { useState } from "react";
 import ChatInput from "@/components/ChatInput";
 import MessageList from "@/components/MessageList";
 import { initAntiFakeAgent } from "@/lib/ai";
+import { fetchArticleText } from "@/lib/article";
 
 interface Message {
   text: string;
   sender: "user" | "bot";
+  error?: boolean;
 }
 
 export default function ChatPage() {
@@ -19,12 +21,28 @@ export default function ChatPage() {
 
     try {
       const apiKey = process.env.NEXT_PUBLIC_OPENAI_KEY;
-      if (!apiKey) return;
+      if (!apiKey) {
+        setMessages((prev) => [
+          ...prev,
+          { text: "API key missing", sender: "bot", error: true },
+        ]);
+        return;
+      }
+
+      let content = text.trim();
+      if (/^https?:\/\//i.test(content)) {
+        content = await fetchArticleText(content);
+      }
+
       const agent = initAntiFakeAgent(apiKey);
-      const result = await agent.invoke({ input: text });
+      const result = await agent.invoke({ input: content });
       setMessages((prev) => [...prev, { text: result, sender: "bot" }]);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      setMessages((prev) => [
+        ...prev,
+        { text: `Error: ${err.message || err}`, sender: "bot", error: true },
+      ]);
     }
   };
 

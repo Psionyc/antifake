@@ -1,7 +1,7 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import { FiArrowUpRight } from "react-icons/fi";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
+import { FiArrowUpRight, FiImage } from "react-icons/fi";
 
 interface ChatInputProps {
   onSend: (message: string) => Promise<void> | void;
@@ -9,6 +9,24 @@ interface ChatInputProps {
 
 export default function ChatInput({ onSend }: ChatInputProps) {
   const [text, setText] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const form = new FormData();
+    form.append("apikey", "helloworld");
+    form.append("language", "eng");
+    form.append("file", file);
+    const res = await fetch("https://api.ocr.space/parse/image", {
+      method: "POST",
+      body: form,
+    });
+    const data = await res.json();
+    const text = data?.ParsedResults?.[0]?.ParsedText || "";
+    if (text) await onSend(text);
+    if (fileRef.current) fileRef.current.value = "";
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -26,6 +44,21 @@ export default function ChatInput({ onSend }: ChatInputProps) {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
+      <input
+        type="file"
+        accept="image/*"
+        ref={fileRef}
+        onChange={handleImageChange}
+        className="hidden"
+      />
+      <button
+        type="button"
+        onClick={() => fileRef.current?.click()}
+        className="flex items-center gap-1 rounded-full bg-gray-700 px-4 py-3 text-white"
+      >
+        <FiImage />
+        <span className="hidden sm:inline">Upload</span>
+      </button>
       <button
         type="submit"
         className="flex items-center gap-1 rounded-full bg-blue-600 px-4 py-3 text-white"
