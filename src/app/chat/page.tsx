@@ -6,7 +6,6 @@ import { FiArrowLeft } from "react-icons/fi";
 import ChatInput from "@/components/ChatInput";
 import MessageList from "@/components/MessageList";
 import { initAntiFakeAgent } from "@/lib/ai";
-import { fetchArticleText } from "@/lib/article";
 
 interface Message {
   text: string;
@@ -36,19 +35,17 @@ export default function ChatPage() {
         return;
       }
 
-      let content = text.trim();
-      if (/^https?:\/\//i.test(content)) {
-        content = await fetchArticleText(content);
-      }
-
-      const searchRes = await fetch("/api/search", {
+      const processRes = await fetch("/api/process", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: content.slice(0, 120) }),
+        body: JSON.stringify({ input: text }),
       });
-      if (searchRes.ok) {
-        const data = await searchRes.json();
-        const sources: string[] = data.sources || [];
+      let content = text.trim();
+      let sources: string[] = [];
+      if (processRes.ok) {
+        const data = await processRes.json();
+        content = data.content || content;
+        sources = data.sources || [];
         if (sources.length) {
           content += `\n\nCredible sources found on Google: ${sources.join(", ")}`;
         }
@@ -78,11 +75,14 @@ export default function ChatPage() {
   return (
     <div className="flex min-h-screen flex-col items-center bg-neutral-950 text-white">
       <div className="w-full p-4">
-        <Link href="/" className="flex items-center gap-1 text-white hover:underline">
+        <Link
+          href="/"
+          className="flex items-center gap-1 text-white hover:underline"
+        >
           <FiArrowLeft /> Home
         </Link>
       </div>
-      <div className="flex w-full max-w-2xl flex-col">
+      <div className="flex w-full max-w-2xl flex-col pb-32">
         <MessageList messages={messages} />
         <ChatInput onSend={handleSend} />
       </div>
