@@ -29,6 +29,9 @@ COPY . .
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
+RUN --mount=type=secret,id=NEXT_PUBLIC_OPENAI_KEY \
+    echo "NEXT_PUBLIC_OPENAI_KEY=$(cat /run/secrets/NEXT_PUBLIC_OPENAI_KEY)" > .env.local \
+    && npm run build
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
