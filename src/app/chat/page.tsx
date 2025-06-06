@@ -76,7 +76,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center bg-neutral-950 text-white">
+    <div className="flex h-screen flex-col items-center bg-neutral-950 text-white overflow-hidden">
       <div className="w-full p-4">
         <Link href="/" className="flex items-center gap-1 text-white hover:underline">
           <FiArrowLeft /> Home
