@@ -67,21 +67,27 @@ export default function ChatInput({ onSend }: ChatInputProps) {
           <button
             type="button"
             onClick={handlePasteClick}
-            className="flex items-center gap-1 rounded-full bg-gray-700 px-3 py-2 text-white"
+            className="relative flex items-center gap-2 rounded-lg bg-gray-700 px-3 py-2 text-left text-white"
           >
-            <Lightbulb className="h-4 w-4" />
-            <FiClipboard className="h-4 w-4" />
-            <span>Paste</span>
+            <FiClipboard className="h-6 w-6" />
+            <div className="flex flex-col">
+              <span className="font-bold">Paste</span>
+              <span className="text-xs text-gray-300">Insert text from your clipboard.</span>
+            </div>
+            <Lightbulb className="absolute right-1 top-1 h-4 w-4 text-yellow-300" />
           </button>
         )}
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="flex items-center gap-1 rounded-full bg-gray-700 px-3 py-2 text-white"
+          className="relative flex items-center gap-2 rounded-lg bg-gray-700 px-3 py-2 text-left text-white"
         >
-          <Lightbulb className="h-4 w-4" />
-          <FiImage className="h-4 w-4" />
-          <span>Upload image</span>
+          <FiImage className="h-6 w-6" />
+          <div className="flex flex-col">
+            <span className="font-bold">Upload Image</span>
+            <span className="text-xs text-gray-300">Snap or choose a photo to analyse.</span>
+          </div>
+          <Lightbulb className="absolute right-1 top-1 h-4 w-4 text-yellow-300" />
         </button>
       </div>
       <input
