@@ -17,12 +17,13 @@ export default function MessageList({ messages }: MessageListProps) {
   if (messages.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center p-4">
-        <div className="space-y-2 rounded-md border border-gray-600 bg-neutral-900 px-8 py-4 text-gray-300">
-          <p className="text-sm font-medium">Example prompts:</p>
-          <ul className="list-inside list-disc space-y-1 text-sm">
-            <li>"Is this Guardian article fake?"</li>
-            <li>"Check if this story is credible."</li>
-          </ul>
+        <div className="flex gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-700">
+            <FiCpu className="text-white" />
+          </div>
+          <div className="rounded-lg bg-gray-800 px-4 py-2 text-white">
+            Type or paste a message to begin.
+          </div>
         </div>
       </div>
     );
