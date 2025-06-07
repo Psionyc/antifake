@@ -82,7 +82,9 @@ export default function ChatPage() {
           <FiArrowLeft /> Home
         </Link>
       </div>
-      <div className="flex w-full max-w-2xl flex-col pb-32">
+      <div
+        className={`flex w-full max-w-2xl flex-col ${messages.length ? 'pb-48' : 'pb-32'}`}
+      >
         <MessageList messages={messages} />
         <ChatInput onSend={handleSend} />
       </div>

@@ -2,7 +2,6 @@
 
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { FiArrowUpRight, FiImage, FiClipboard } from "react-icons/fi";
-import { Lightbulb } from "lucide-react";
 
 interface ChatInputProps {
   onSend: (message: string) => Promise<void> | void;
@@ -67,7 +66,7 @@ export default function ChatInput({ onSend }: ChatInputProps) {
           <button
             type="button"
             onClick={handlePasteClick}
-            className="relative flex items-center gap-2 rounded-xl border border-white bg-neutral-800 px-4 py-3 text-left text-white"
+            className="relative flex items-center gap-2 rounded-xl border border-white bg-neutral-900 px-4 py-3 text-left text-white"
           >
             <FiClipboard className="h-6 w-6" />
             <div className="flex flex-col">
@@ -77,15 +76,12 @@ export default function ChatInput({ onSend }: ChatInputProps) {
                 Start chatting instantly.
               </span>
             </div>
-            <div className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-950">
-              <Lightbulb className="h-3 w-3 text-blue-300" />
-            </div>
           </button>
         )}
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="relative flex items-center gap-2 rounded-xl border border-white bg-neutral-800 px-4 py-3 text-left text-white"
+          className="relative flex items-center gap-2 rounded-xl border border-white bg-neutral-900 px-4 py-3 text-left text-white"
         >
           <FiImage className="h-6 w-6" />
           <div className="flex flex-col">
@@ -95,14 +91,11 @@ export default function ChatInput({ onSend }: ChatInputProps) {
               Get insights in seconds.
             </span>
           </div>
-          <div className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-950">
-            <Lightbulb className="h-3 w-3 text-blue-300" />
-          </div>
         </button>
       </div>
       <input
         type="text"
-        className="flex-1 rounded-full border border-gray-600 bg-gray-700 px-4 py-3 text-white"
+        className="flex-1 rounded-full border border-gray-600 bg-neutral-900 px-4 py-3 text-white"
         placeholder="Type your message..."
         value={text}
         onChange={(e) => setText(e.target.value)}
