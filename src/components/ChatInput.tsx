@@ -67,27 +67,37 @@ export default function ChatInput({ onSend }: ChatInputProps) {
           <button
             type="button"
             onClick={handlePasteClick}
-            className="relative flex items-center gap-2 rounded-lg bg-gray-700 px-3 py-2 text-left text-white"
+            className="relative flex items-center gap-2 rounded-xl border border-white bg-neutral-800 px-4 py-3 text-left text-white"
           >
             <FiClipboard className="h-6 w-6" />
             <div className="flex flex-col">
               <span className="font-bold">Paste</span>
-              <span className="text-xs text-gray-300">Insert text from your clipboard.</span>
+              <span className="text-xs text-gray-300">
+                Insert text from your clipboard for quick analysis.<br/>
+                Start chatting instantly.
+              </span>
             </div>
-            <Lightbulb className="absolute right-1 top-1 h-4 w-4 text-yellow-300" />
+            <div className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-950">
+              <Lightbulb className="h-3 w-3 text-blue-300" />
+            </div>
           </button>
         )}
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="relative flex items-center gap-2 rounded-lg bg-gray-700 px-3 py-2 text-left text-white"
+          className="relative flex items-center gap-2 rounded-xl border border-white bg-neutral-800 px-4 py-3 text-left text-white"
         >
           <FiImage className="h-6 w-6" />
           <div className="flex flex-col">
             <span className="font-bold">Upload Image</span>
-            <span className="text-xs text-gray-300">Snap or choose a photo to analyse.</span>
+            <span className="text-xs text-gray-300">
+              Snap or choose a photo to analyse for text extraction.<br/>
+              Get insights in seconds.
+            </span>
           </div>
-          <Lightbulb className="absolute right-1 top-1 h-4 w-4 text-yellow-300" />
+          <div className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-950">
+            <Lightbulb className="h-3 w-3 text-blue-300" />
+          </div>
         </button>
       </div>
       <input
