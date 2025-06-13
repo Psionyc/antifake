@@ -6,6 +6,10 @@ import {
   Cell,
   ResponsiveContainer,
   Tooltip,
+  BarChart,
+  XAxis,
+  Bar,
+  YAxis,
 } from "recharts";
 import Link from "next/link";
 import { FiArrowLeft } from "react-icons/fi";

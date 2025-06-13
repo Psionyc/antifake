@@ -17,7 +17,7 @@ export default function ChatInput({ onSend }: ChatInputProps) {
       navigator.clipboard
         .readText()
         .then((t) => setHasClipboard(Boolean(t.trim())))
-        .catch(() => {});
+        .catch(() => { });
     }
   }, []);
 
@@ -41,8 +41,9 @@ export default function ChatInput({ onSend }: ChatInputProps) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (text.trim() === "") return;
-    await onSend(text);
+    const newsText = text.trim();
     setText("");
+    await onSend(newsText);
   };
 
   const handlePasteClick = async () => {
@@ -53,7 +54,7 @@ export default function ChatInput({ onSend }: ChatInputProps) {
         setText(clipText.trim());
         setHasClipboard(false);
       }
-    } catch {}
+    } catch { }
   };
 
   return (
@@ -72,7 +73,7 @@ export default function ChatInput({ onSend }: ChatInputProps) {
             <div className="flex flex-col">
               <span className="font-bold">Paste</span>
               <span className="text-xs text-gray-300">
-                Insert text from your clipboard for quick analysis.<br/>
+                Insert text from your clipboard for quick analysis.<br />
                 Start chatting instantly.
               </span>
             </div>
@@ -87,7 +88,7 @@ export default function ChatInput({ onSend }: ChatInputProps) {
           <div className="flex flex-col">
             <span className="font-bold">Upload Image</span>
             <span className="text-xs text-gray-300">
-              Snap or choose a photo to analyse for text extraction.<br/>
+              Snap or choose a photo to analyse for text extraction.<br />
               Get insights in seconds.
             </span>
           </div>
