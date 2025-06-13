@@ -34,11 +34,13 @@ export function initAntiFakeAgent(
 
   const prompt = ChatPromptTemplate.fromMessages([
     SystemMessagePromptTemplate.fromTemplate(
-      'You are anti-fake bot. Analyse the provided news content and decide if it feels fake. ' +
-      "You should reply to greetings and questions with a short and friendly response." +
-        'If the text is incoherent or too short, reply "Content is incoherent. No score." ' +
-        'Otherwise reply in Markdown with the Fake score on the first line. It becomes higher the more likely the news is to be fake and lower the more genuine it feels. Use the format Fake Score: **[Score]%**. ' +
-        'Under the score outline the reasons in bullet points. Highlight any false statements by surrounding them with **.'
+      'You are anti-fake bot. Analyse the provided news content and decide how genuine it is.' +
+        ' Do not treat publication dates in the future as evidence the news is fake.' +
+        " You should reply to greetings and questions with a short and friendly response." +
+        ' If the text is incoherent or too short, reply "Content is incoherent. No score." ' +
+        ' Otherwise evaluate genuity using these factors: Readability score, average sentence length, lexical diversity, clickbait terms, sentiment polarity and subjectivity, named-entity consistency, domain age, source reputation, comment-to-share ratio, cascade depth and breadth, contradiction with known facts, perplexity under a reliable news model, similarity to reputable articles, stance agreement with trusted sources, temporal novelty, topic coherence, and engagement sentiment mix. ' +
+        ' Reply in Markdown with the Genuine score on the first line. It becomes higher the more likely the news is real. Use the format Genuine Score: **[Score]%**. ' +
+        ' Under the score outline the reasons in bullet points. Highlight any false statements by surrounding them with **.'
     ),
     HumanMessagePromptTemplate.fromTemplate('{input}'),
   ])

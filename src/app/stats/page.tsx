@@ -5,33 +5,19 @@ import {
   Pie,
   Cell,
   ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
   Tooltip,
 } from "recharts";
 import Link from "next/link";
 import { FiArrowLeft } from "react-icons/fi";
+import { useEffect, useState } from "react";
 
-const networks = [
-  { name: "Channels TV", score: 78, image: "https://logo.clearbit.com/channelstv.com", link: "https://channelstv.com" },
-  { name: "AIT", score: 65, image: "https://logo.clearbit.com/ait.live", link: "https://ait.live" },
-  { name: "Punch", score: 72, image: "https://logo.clearbit.com/punchng.com", link: "https://punchng.com" },
-  { name: "Vanguard", score: 70, image: "https://logo.clearbit.com/vanguardngr.com", link: "https://vanguardngr.com" },
-  { name: "The Guardian Nigeria", score: 80, image: "https://logo.clearbit.com/guardian.ng", link: "https://guardian.ng" },
-  { name: "Sahara Reporters", score: 55, image: "https://logo.clearbit.com/saharareporters.com", link: "https://saharareporters.com" },
-  { name: "This Day", score: 68, image: "https://logo.clearbit.com/thisdaylive.com", link: "https://thisdaylive.com" },
-  { name: "Daily Trust", score: 75, image: "https://logo.clearbit.com/dailytrust.com", link: "https://dailytrust.com" },
-  { name: "The Nation", score: 73, image: "https://logo.clearbit.com/thenationonlineng.net", link: "https://thenationonlineng.net" },
-  { name: "NTA News", score: 60, image: "https://logo.clearbit.com/nta.ng", link: "https://nta.ng" },
-];
+interface RecordData {
+  source: string;
+  avgScore: number;
+  count: number;
+}
 
-const pieData = [
-  { name: "Fake", value: 60 },
-  { name: "Not Fake", value: 40 },
-];
-
+const COLORS = ["#10B981", "#EF4444"];
 const barData = [
   { name: "Mon", checked: 10 },
   { name: "Tue", checked: 15 },
@@ -40,9 +26,33 @@ const barData = [
   { name: "Fri", checked: 5 },
 ];
 
-const COLORS = ["#EF4444", "#10B981"];
-
 export default function StatsPage() {
+  const [records, setRecords] = useState<RecordData[]>([]);
+
+  useEffect(() => {
+    fetch('/api/news')
+      .then((r) => r.json())
+      .then(setRecords)
+      .catch((err) => console.error('stats fetch error', err));
+  }, []);
+
+  const networks = records.map((r) => ({
+    name: r.source,
+    score: Math.round(r.avgScore),
+    image: `https://logo.clearbit.com/${r.source}`,
+    link: `https://${r.source}`,
+  }));
+  const pieData = [
+    {
+      name: 'Genuine',
+      value: records.reduce((a, r) => a + (r.avgScore >= 50 ? r.count : 0), 0),
+    },
+    {
+      name: 'Not Genuine',
+      value: records.reduce((a, r) => a + (r.avgScore < 50 ? r.count : 0), 0),
+    },
+  ];
+
   return (
     <div className="flex min-h-screen flex-col items-center bg-neutral-950 p-4 text-white space-y-8">
       <div className="w-full">
@@ -80,7 +90,7 @@ export default function StatsPage() {
         ))}
       </div>
       <div className="w-full max-w-xl">
-        <h2 className="mb-4 text-lg font-semibold">Fake vs Not-Fake News</h2>
+        <h2 className="mb-4 text-lg font-semibold">Genuine vs Not-Genuine News</h2>
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie data={pieData} dataKey="value" nameKey="name" outerRadius={100} label>
