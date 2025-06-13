@@ -7,6 +7,7 @@ import ChatInput from "@/components/ChatInput";
 import MessageList from "@/components/MessageList";
 import { initAntiFakeAgent } from "@/lib/ai";
 
+
 interface Message {
   text: string;
   sender: "user" | "bot";
@@ -58,6 +59,20 @@ export default function ChatPage() {
         msgs[msgs.length - 1] = { text: result, sender: "bot" };
         return msgs;
       });
+
+      const match = /Genuine Score:\s*\*\*(\d+(?:\.\d+)?)%\*/i.exec(result);
+      if (match) {
+        const score = parseFloat(match[1]);
+        fetch("/api/news", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            source: sources[0] || "unknown",
+            score,
+            text: content,
+          }),
+        }).catch((err) => console.error("save error", err));
+      }
     } catch (err: any) {
       console.error(err);
       setMessages((prev) => {
