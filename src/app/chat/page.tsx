@@ -6,6 +6,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import ChatInput from "@/components/ChatInput";
 import MessageList from "@/components/MessageList";
 import { initAntiFakeAgent } from "@/lib/ai";
+import { getBaseDomain } from "@/lib/utils";
 
 
 interface Message {
@@ -28,6 +29,7 @@ export default function ChatPage() {
 
     try {
       const apiKey = process.env.NEXT_PUBLIC_OPENAI_KEY;
+      const baseDomain = getBaseDomain(text);
       if (!apiKey) {
         setMessages((prev) => [
           ...prev,
@@ -67,7 +69,7 @@ export default function ChatPage() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            source: sources[0] || "unknown",
+            source: baseDomain || sources[0] || "unknown",
             score,
             text: content,
           }),
